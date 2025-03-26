@@ -1,0 +1,214 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Clogin Passport\n"
+"POT-Creation-Date: 2021-11-29 20:49+0800\n"
+"PO-Revision-Date: 2021-11-29 20:50+0800\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.2\n"
+"X-Poedit-Basepath: ..\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Poedit-Flags-xgettext: --add-comments=translators:\n"
+"X-Poedit-WPHeader: clogin-passport.php\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;"
+"_n_noop:1,2;_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
+
+#: clogin-passport.php:55
+msgid "QQ"
+msgstr "QQ"
+
+#: clogin-passport.php:56
+msgid "Wechat"
+msgstr "微信"
+
+#: clogin-passport.php:57
+msgid "Alipay"
+msgstr "支付宝"
+
+#: clogin-passport.php:58
+msgid "Weibo"
+msgstr "微博"
+
+#: clogin-passport.php:59
+msgid "Baidu"
+msgstr "百度"
+
+#: clogin-passport.php:60
+msgid "Huawei"
+msgstr "华为"
+
+#: clogin-passport.php:61
+msgid "Google"
+msgstr "谷歌"
+
+#: clogin-passport.php:62
+msgid "Microsoft"
+msgstr "微软"
+
+#: clogin-passport.php:63
+msgid "Facebook"
+msgstr "Facebook"
+
+#: clogin-passport.php:64
+msgid "Twitter"
+msgstr "Twitter"
+
+#: clogin-passport.php:65
+msgid "Dingtalk"
+msgstr "钉钉"
+
+#: clogin-passport.php:92
+msgid ""
+"Your have to register a new account and binded this social media account, "
+"then you can login via this social media account."
+msgstr ""
+"必须注册一个新帐户并绑定此社交媒体帐户，然后才可以通过此社交媒体帐户登录。"
+
+#: clogin-passport.php:99
+msgid "Open ID"
+msgstr "第三方账号标识"
+
+#: clogin-passport.php:128
+msgid "Social Media Accounts"
+msgstr "社交媒体账户"
+
+#: clogin-passport.php:149
+msgid "Bind Now"
+msgstr "立即绑定"
+
+#: clogin-passport.php:153
+msgid "Rebind"
+msgstr "重新绑定"
+
+#: clogin-passport.php:276 clogin-passport.php:278
+msgid "Failed to get the login url!"
+msgstr "获取登录地址失败！"
+
+#: clogin-passport.php:285
+msgid "The state does not match. You may be a victim of CSRF."
+msgstr ""
+
+#: clogin-passport.php:340
+msgid "Failed to get the callback!"
+msgstr "获取回调信息失败！"
+
+#: clogin-passport.php:342
+msgid "Failed to get the login data!"
+msgstr "获取登录数据失败！"
+
+#: clogin-passport.php:433
+msgid "Third-Party Login"
+msgstr "第三方登录"
+
+#: clogin-passport.php:443
+msgid "Login"
+msgstr "登录"
+
+#: clogin-passport.php:450
+msgid "Settings"
+msgstr "设置"
+
+#. Plugin Name of the plugin/theme
+#: clogin-passport.php:468 clogin-passport.php:469 clogin-passport.php:488
+msgid "Clogin Passport"
+msgstr "彩虹聚合登录"
+
+#. Description of the plugin/theme
+#: clogin-passport.php:489
+msgid "Clogin Passport for Wordpress, Many Oauth 2.0 log in methods."
+msgstr "为Wordpress打造的彩虹聚合登录，使用更多通过OAuth 2.0快速登录的方法。"
+
+#: clogin-passport.php:497
+msgid "API URL"
+msgstr "接口地址"
+
+#: clogin-passport.php:499 clogin-passport.php:509 clogin-passport.php:518
+#: clogin-passport.php:527 clogin-passport.php:534 clogin-passport.php:544
+msgid "Enabled"
+msgstr "开启"
+
+#: clogin-passport.php:502
+msgid "Must start with http:// or https:// and end with /"
+msgstr "必须以http://或https://开头，以/结尾"
+
+#: clogin-passport.php:507
+msgid "APPID"
+msgstr "APPID"
+
+#: clogin-passport.php:516
+msgid "APPKEY"
+msgstr "APPKEY"
+
+#: clogin-passport.php:525
+msgid "Open Login Method"
+msgstr "开启的登录方式"
+
+#: clogin-passport.php:532
+msgid "Avatar Priority"
+msgstr "头像优先级"
+
+#: clogin-passport.php:537
+msgid ""
+"Default is 9999, if you want Clogin Passport to fully take over the avatar "
+"display address from the other plugins, please set a larger number."
+msgstr ""
+"默认为9999，如果你想让QQWorld通行证从其他插件手里全面接管头像地址的显示，请"
+"设置更大的数值。"
+
+#: clogin-passport.php:542
+msgid "Automatic Register"
+msgstr "自动注册"
+
+#: clogin-passport.php:547
+#, php-format
+msgid ""
+"If hasn't binded social media account, then create new account "
+"automatically. and do not forget allowed anyone can register in <a href=\"%s"
+"\" target=\"_blank\">General Settings</a>"
+msgstr ""
+"如果没有绑定社交账户，则自动注册新的账户。并且不要忘记在<a href=\"%s\" "
+"target=\"_blank\">常规选项</a>里允许任何人都可以注册。"
+
+#: clogin-passport.php:552 clogin-passport.php:554
+msgid "Documents"
+msgstr "开发文档"
+
+#: clogin-passport.php:557
+msgid "How to print avatar image?"
+msgstr "如何输出头像？"
+
+#: clogin-passport.php:559
+msgid "How to get avatar image URL?"
+msgstr "如何获取头像图片的URL？"
+
+#: clogin-passport.php:561
+msgid "How to update avatar image URL?"
+msgstr "如何更换头像图片？"
+
+#: clogin-passport.php:563
+msgid "How to print third-part login list?"
+msgstr "如何输出第三方登录列表？"
+
+#: clogin-passport.php:571
+msgid "How to print buttons of binding social media account?"
+msgstr "如何调用绑定社交账号的按钮？"
+
+#. Plugin URI of the plugin/theme
+msgid "https://wordpress.org/plugins/clogin-passport/"
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "cccyun"
+msgstr "彩虹"
+
+#. Author URI of the plugin/theme
+msgid "https://u.cccyun.cc/"
+msgstr ""

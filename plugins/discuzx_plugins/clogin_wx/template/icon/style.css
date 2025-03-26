@@ -1,0 +1,50 @@
+/* common */
+* { word-wrap: break-word; }
+ul,ol,li,span,p,form,h1,h2,h3,h4,h5,h6,dl,dt,dd { margin: 0; padding: 0; border: 0; z-index:inherit; }
+img,a img { border:0; margin:0; padding:0; max-width: 100%;}
+ul,ol,li { list-style:none; }
+* { margin:0; padding:0; }
+html,body { height:100%; font:12px/1.6  Microsoft YaHei, Helvetica, sans-serif; color:#696969; }
+input,select,textarea,button { font:14px/1.5  Microsoft YaHei, Helvetica, sans-serif; }
+body, ul, ol, li, dl, dd, p, h1, h2, h3, h4, h5, h6, form, fieldset, .pr, .pc { margin: 0; padding: 0; }
+table { empty-cells: show; border-collapse: collapse; }
+caption, th { text-align: left; font-weight: 400; }
+ul li, .xl li { list-style: none; }
+h1, h2, h3, h4, h5, h6 { font-size: 1em; }
+em, cite, i { font-style: normal; }
+a img { border: none; }
+label { cursor: pointer; }
+a:link,a:visited,a:hover { color:#4C4C4C; text-decoration:none; }
+.bg{background:#fff;}
+
+.nav {background:#ff6363; height:48px; width:100%; color:#fff; line-height:48px; z-index: 99999; overflow:hidden;}
+.nav a,.nav a:link{color:#fff;font-size:18px;display:block;text-align:center; height:48px;}
+.nav a img{height:48px;}
+.nav .nav_left{width:50px; float:left;height:48px;}
+.nav .nav_left .fa-angle-left{height:48px; line-height:48px;}
+.nav .nav_right{width:50px; float:right;}
+.nav .nav_center{text-align:center; margin:0 50px;}
+.nav .nav_center .box a{display:initial; font-size:16px;padding:0 3px;margin:0 10px;}
+.nav .nav_center .box a.a{border-bottom:solid 1px #fff;padding-bottom:5px;}
+
+
+.connect_config_bindinfo{font-size:14px; margin:20px 10px 10px 10px; color: #F26C4F;}
+.connect_config_bind{font-size:14px; margin:20px 10px 10px 10px; color: #999;}
+#unbind{padding:10px;font-size:14px;}
+#unbind .unbind_desc{margin-bottom:7px;}
+#unbind div.password{margin-top:10px;}
+.password ul{border:solid 1px #f3f3f3;border-radius:3px;}
+.password ul li{height:38px; line-height:38px; font-size:15px;display: flex;padding:0 10px;border-bottom: solid 1px #f3f3f3;}
+
+.password ul li em{width:80px;}
+.password ul li input{border: none;
+    height: 38px;
+    line-height: 38px;
+    padding: 0;
+    text-indent: 10px;
+    width: 100%;}
+.submitbtn{height: 38px; line-height: 38px;
+    width: 100%; font-size: 15px; text-align: center; display: block; border-radius: 5px; border: none; margin-top: 20px;}
+.btn-primary{background: #2e9de6; color: #fff;}
+.btn-warning{background: #f9642b; color: #fff;}
+.btn-default{border: 1px solid #ccc; color: #333;}

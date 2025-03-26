@@ -1,0 +1,14 @@
+<style>
+    .login-ico{
+        display: inline-block;
+        height: 1.4rem;
+        width: 1.4rem;
+        border-radius: 50%;
+        background: no-repeat center;
+        background-size: cover;
+        margin-right:1.5rem;
+    }
+</style>
+<volist name="opentype" id="type">
+    <a class="login-ico plugin-btn" href="{$auth_url}?type={$type}" style="background-image:url('/app/Plugin/{$auth_code}/View/images/{$type}.png')"></a>
+</volist>

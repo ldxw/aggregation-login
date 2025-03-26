@@ -1,0 +1,21 @@
+<?php
+return[
+    'appurl'=>[
+        'title'=>'接口网址',
+        'type'=>'text',
+        'value'=>'',
+        'tip'=>'接口网址以http://开头，以/结尾',
+    ],
+    'appid'=>[
+        'title'=>'应用APPID',
+        'type'=>'text',
+        'value'=>'',
+        'tip'=>'申请应用之后的APPID',
+    ],
+    'appkey'=>[
+        'title'=>'应用APPKEY',
+        'type'=>'text',
+        'value'=>'',
+        'tip'=>'申请应用之后的APPKEY',
+    ],
+];

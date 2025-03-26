@@ -1,0 +1,125 @@
+<!--{if $connect_member and !$connect_member['isreset']}-->
+<p class="pbm bbda xi1">{lang clogin_qq:connect_config_bindinfo}</p>
+<form class="mbw bbda">
+	<table cellspacing="0" cellpadding="0" class="tfm">
+	<tbody>
+		<tr><th>{lang clogin_qq:connect_config_uid}</th><td>{$connect_member['openid']}</td></tr>
+		<tr><th>{lang clogin_qq:connect_config_nick}</th><td>{$connect_member['nickname']}</td></tr>
+	</tbody></table>
+</form>
+<div id="unbind">
+	<form action="plugin.php?id=clogin_qq:bind&pluginop=reset" method="post" autocomplete="off">
+		<input type="hidden" name="formhash" value="{FORMHASH}">
+		<div class="ptm pbm">
+			<p>{lang clogin_qq:connect_config_reset}</p>
+		</div>
+		<div class="password">
+			<table cellspacing="0" cellpadding="0" class="tfm">
+				<tr>
+					<th><span class="rq">*</span>{lang username}</th>
+					<td><input type="text" size="25" name="newusername" id="newusername" class="px" value="" required/><em class="d"></em></td>
+				</tr>
+				<!--{if $sqqconnect['reset_email']}-->
+				<tr>
+					<th><span class="rq">*</span>{lang email}</th>
+					<td><input type="text" size="25" name="newemail" id="newemail" class="px" value="" required/><em class="d"></em></td>
+				</tr>
+				<!--{/if}-->
+				<tr>
+					<th><span class="rq">*</span>{lang clogin_qq:connect_config_new_password}</th>
+					<td><input type="password" size="25" name="newpassword1" id="newpassword1" class="px" value="" required/><em class="d"></em></td>
+				</tr>
+				<tr>
+					<th><span class="rq">*</span>{lang clogin_qq:connect_config_new_password_confirm}</th>
+					<td><input type="password" size="25" name="newpassword2" id="newpassword2" class="px" value="" required/></td>
+				</tr>
+				<tr>
+					<th></th>
+					<td>
+						<input type="hidden" name="op" value="unbind"/>
+						<button type="submit" name="connectsubmit" value="yes" class="pn pnc"><strong>{lang clogin_qq:connect_config_button}</strong></button>
+					</td>
+				</tr>
+			</table>
+		</div>
+	</form>
+</div>
+
+<!--{elseif $connect_member and $connect_member['isregister']}-->
+<p class="pbm bbda xi1">{lang clogin_qq:connect_config_bindinfo}</p>
+<form class="mbw bbda">
+	<table cellspacing="0" cellpadding="0" class="tfm">
+	<tbody>
+		<tr><th>{lang clogin_qq:connect_config_uid}</th><td>{$connect_member['openid']}</td></tr>
+		<tr><th>{lang clogin_qq:connect_config_nick}</th><td>{$connect_member['nickname']}</td></tr>
+	</tbody></table>
+</form>
+<h2><a href="javascript:;" onclick="display('unbind');" class="xi2">{lang clogin_qq:connect_config_unbind_tip}</a></h2>
+<div id="unbind" style="display:none;">
+	<form action="plugin.php?id=clogin_qq:bind&pluginop=unbind" method="post" autocomplete="off">
+		<input type="hidden" name="formhash" value="{FORMHASH}">
+		<div class="ptm pbm">
+			<p>{lang clogin_qq:connect_config_unbind_desc1}<span style="color:#F26C4F;">$_G[username]</span>{lang clogin_qq:connect_config_unbind_desc2}</p>
+		</div>
+		<div class="password">
+			<table cellspacing="0" cellpadding="0" class="tfm">
+				<tr>
+					<th>{lang clogin_qq:connect_config_new_password}</th>
+					<td><input type="password" size="25" name="newpassword1" id="newpassword1" class="px" value="" /><em class="d">{lang clogin_qq:connect_config_password_comment}</em></td>
+				</tr>
+				<tr>
+					<th>{lang clogin_qq:connect_config_new_password_confirm}</th>
+					<td><input type="password" size="25" name="newpassword2" id="newpassword2" class="px" value="" /></td>
+				</tr>
+				<tr>
+					<th></th>
+					<td>
+						<input type="hidden" name="op" value="unbind"/>
+						<button type="submit" name="connectsubmit" value="yes" class="pn pnc"><strong>{lang clogin_qq:connect_config_unbind_confirm}</strong></button>
+					</td>
+				</tr>
+			</table>
+		</div>
+	</form>
+</div>
+
+<!--{elseif $connect_member}-->
+<p class="pbm bbda xi1">{lang clogin_qq:connect_config_bindinfo}</p>
+<form class="mbw bbda">
+	<table cellspacing="0" cellpadding="0" class="tfm">
+	<tbody>
+		<tr><th>{lang clogin_qq:connect_config_uid}</th><td>{$connect_member['openid']}</td></tr>
+		<tr><th>{lang clogin_qq:connect_config_nick}</th><td>{$connect_member['nickname']}</td></tr>
+	</tbody></table>
+</form>
+<h2><a href="javascript:;" onclick="display('unbind');" class="xi2">{lang clogin_qq:connect_config_unbind_tip}</a></h2>
+<div id="unbind" style="display:none;">
+	<form action="plugin.php?id=clogin_qq:bind&pluginop=unbind" method="post" autocomplete="off">
+		<input type="hidden" name="formhash" value="{FORMHASH}">
+		<p class="mtm mbm">
+			{lang clogin_qq:connect_config_unbind_desc}
+		</p>
+		<div>
+			<input type="hidden" name="op" value="unbind"/>
+			<button type="submit" name="connectsubmit" value="yes" class="pn pnc"><strong>{lang clogin_qq:connect_config_unbind_confirm}</strong></button>
+		</div>
+	</form>
+</div>
+<!--{else}-->
+
+<div style="">
+	<h2>{lang clogin_qq:connect_config_title}</h2>
+	<p class="xg1">{lang clogin_qq:connect_config_desc}</p>
+</div>
+<div class="mtw bm2 cl">
+	<div class="bm2_b bw0 hm" style="padding-top: 70px;">
+		<a href="plugin.php?id=clogin_qq:bind&pluginop=bind"><img src="$_G['siteurl']source/plugin/clogin_qq/img/qq_bind.gif" /></a>
+		<p class="mtn xg1">{lang clogin_qq:connect_config_bind}</p>
+	</div>
+
+</div>
+<!--{/if}-->
+
+
+
+

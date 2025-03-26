@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+	<meta name="renderer" content="webkit">
+	<script src="https://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
+	<title>用户中心 - {$common_site_name}</title>
+	<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+	<style>
+		.container {
+			width: 12.825rem;
+			min-height: 6.5rem;
+			margin: 0 auto;
+			background-color: #d9e7ff;
+			padding: 0.25rem;
+			margin-top: 5rem;
+			text-align: center;
+		}
+		.inner-container {
+			width: 100%;
+			min-height: 6.5rem;
+			border: 2px solid #5c91e6;
+			padding: 1px;
+			background-color: #fff;
+		}
+		.title {
+			height: 1.5rem;
+			line-height: 1.5rem;
+			font-size: 0.65rem;
+			color: #fff;
+			background-color: #5c91e6;
+		}
+		.content {
+			font-size: 0.7rem;
+			margin-top: 1rem;
+		}
+		.link {
+			margin-top: 0.6rem;
+		}
+		.link a {
+			font-size: 0.45rem;
+		}
+	</style>
+
+</head>
+<body class="mui-ios mui-ios-8 mui-ios-8-0">
+
+
+<!-- main begin-->
+<div class="ny-mui-content bg-gray">
+	<div class="mui-scroll-wrapper">
+		<div class="mui-scroll">
+			<div class="container">
+				<div class="inner-container">
+					<div class="title">
+						消息提示
+					</div>
+					<div class="content">
+						<?php if(isset($message)) {?>
+							<?php echo $message;?>
+						<?php }else{?>
+							<?php echo $error; ?>
+						<?php }?>
+					</div>
+					<div class="link">
+						<a href="<?php echo($jumpUrl); ?>">如果页面没有自动跳转，请点击这里。</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- main end-->
+
+<!--
+自定义跳转时间
+<?php
+if(isset($customSecond)){
+    $waitSecond = $waitSecond + $customSecond;
+}else{
+    $waitSecond = $waitSecond + $customSecond;
+}
+if($waitSecond < 0){
+    $waitSecond = 0;
+}
+?>
+-->
+
+<script>
+	// calculate root node
+	(function (doc, win) {
+		var docEl = doc.documentElement,
+				resizeEvt = "orientationchange" in window ? "orientationchange" : "resize",
+				recalc = function () {
+					var clientWidth = docEl.clientWidth;
+					if (!clientWidth) return;
+					clientWidth = clientWidth > 640 ? 640 : clientWidth;
+					docEl.style.fontSize = 20 * (clientWidth / 320) + "px";
+				};
+		if (!doc.addEventListener) return;
+		win.addEventListener(resizeEvt, recalc, false);
+		doc.addEventListener('DOMContentLoaded', recalc, false);
+	})(document, window);
+
+	$(function () {
+		window.setTimeout(function (){window.location = "{$jumpUrl}";}, 1000*{$waitSecond})
+	});
+</script>
+</body>
+</html>

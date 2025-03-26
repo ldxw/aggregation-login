@@ -1,0 +1,9 @@
+{php $opentype = get_plugin_inc_v('clogin','opentype');}
+<p style="margin-top:10px">
+{if is_array($opentype) && in_array('qq',$opentype)}
+<a href="{php HYBBS_URL('user','oauth',['type'=>'qq'])}"><img src="{#WWW}Plugin/clogin/img/qq.png"></a>&nbsp;&nbsp;
+{/if}
+{if is_array($opentype) && in_array('wx',$opentype)}
+<a href="{php HYBBS_URL('user','oauth',['type'=>'wx'])}"><img src="{#WWW}Plugin/clogin/img/wx.png"></a>&nbsp;&nbsp;
+{/if}
+</p>

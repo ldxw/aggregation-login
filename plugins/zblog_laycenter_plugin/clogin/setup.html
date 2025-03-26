@@ -1,0 +1,50 @@
+<title>彩虹聚合登录</title>
+<div class="layui-card">
+    <div class="layui-card-body">
+        <form class="layui-form big-label" lay-filter="cloginForm">
+            <div class="layui-form-item">
+                <label class="layui-form-label">接口地址</label>
+                <div class="layui-input-block">
+                    <input type="text" name="appurl" class="layui-input" value="" placeholder="接口地址必须以http://或https://开头，以/结尾">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">APPID</label>
+                <div class="layui-input-block">
+                    <input type="text" name="appid" class="layui-input" value="">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">APPKEY</label>
+                <div class="layui-input-block">
+                    <input type="text" name="appkey" class="layui-input" value="">
+                </div>
+            </div>
+			<div class="layui-form-item">
+                <label class="layui-form-label">开启登录方式</label>
+                <div class="layui-input-block">
+                    <input type="checkbox" name="enable_qq" lay-skin="primary" title="QQ" value="1">
+                    <input type="checkbox" name="enable_wx" lay-skin="primary" title="微信" value="1">
+                    <input type="checkbox" name="enable_sina" lay-skin="primary" title="微博" value="1">
+                    <input type="checkbox" name="enable_alipay" lay-skin="primary" title="支付宝" value="1">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label"></label>
+                <div class="layui-input-inline">
+                	<button class="layui-btn" lay-submit="" lay-filter="cloginSubmit">保存</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<script>
+layui.use('plugin',function(){
+    var plugin=layui.plugin;
+    plugin.loadConfig('clogin','cloginForm');
+    plugin.saveConfig({
+        id: 'clogin',
+        filter: 'cloginSubmit',
+    });
+})
+</script>

@@ -1,0 +1,1 @@
+<?php return array('key'=>'clogin','name'=>'彩虹聚合登录插件','minsystemver'=>'0.3.8.1','version'=>'1.0'); ?>

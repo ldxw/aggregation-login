@@ -1,0 +1,123 @@
+﻿<!DOCTYPE html>
+<html>
+  	<head>
+	    <meta charset="utf-8">
+	    <title>{$title} {$conf.title2}</title>
+	    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	    <meta name="description" content="">
+	    <meta name="author" content="">
+
+
+	    <link href="{#WWW}public/admin/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+		<link href="{#WWW}public/css/font-awesome.min.css" rel="stylesheet">
+		<link href="{#WWW}public/admin/css/simplify.min.css" rel="stylesheet">
+
+  	</head>
+
+  	<body class=" light-background">
+		<div class="wrapper no-navigation preload">
+			<div class="sign-in-wrapper">
+				<div class="sign-in-inner">
+					<div class="login-brand text-center">
+						<i class="fa {$icon} m-right-xs"></i> {$title} <strong class="text-skin">{$conf.title}</strong>
+					</div>
+					
+					
+
+					
+						<div class="user-widget user-widget2">
+							<div class="user-widget-body bg-success" style="height: 85px;">
+								<img src="{$data.faceimg}" alt="">
+								<div class="user-detail">
+									<div class="m-top-sm">{$data.nickname}</div>
+									<div class="small-text text-white"></div>
+								</div>
+							</div>
+
+						</div>
+						<div class="m-top-md p-top-sm" id="select_box">
+							<div class="font-12 text-center m-bottom-xs">亲是第一次登录.请选择一个方式授权</div>
+							<div class="m-top-md p-top-sm">
+								<form action="{php HYBBS_URL('user','oauth_reg')}" method="post">
+								<input type="hidden" name="user" value="">
+								<input type="hidden" name="email" value="">
+								<input type="hidden" name="pass1" value="">
+								<input type="hidden" name="pass2" value="">
+								
+								<input type="hidden" name="gn" value="create" >
+								<button style="width:100%" type="submit" class="btn btn-success block btn-lg">直接登入 (推荐)</button>
+								
+								</form>
+							</div>
+							<div class="m-top-md p-top-sm">
+								<button onclick="open_box('create')" style="width:100%" type="submit" class="btn btn-warning block btn-lg">创建新账号</button>
+							</div>
+							<div class="m-top-md p-top-sm">
+								<button onclick="open_box('bind')" style="width:100%" type="submit" class="btn btn-danger block btn-lg">绑定已有账号</button>
+							</div>
+						</div>
+						<script>
+						function open_box(id){
+							
+							document.getElementById("select_box").style.display="none";
+							document.getElementById(id).style.display="block";
+							
+						}
+						function hide_box(id){
+							document.getElementById("select_box").style.display="block";
+							document.getElementById(id).style.display="none";
+						}
+						
+						 
+						</script>
+						<form action="{php HYBBS_URL('user','oauth_reg')}" method="post" id="create" style="display:none">
+					
+							<a onclick="hide_box('create')" class="btn btn-default block">返回上一步</a>
+							<div class="font-12 text-center m-bottom-xs m-top-xs">创建新账号</div>
+							<div class="form-group m-bottom-md">
+								<label>帐号</label>
+								<input type="text" name="user" class="form-control">
+							</div>
+							<div class="form-group">
+								<label>邮箱</label>
+								<input type="email" name="email" class="form-control" >
+							</div>
+							<div class="form-group">
+								<label>密码</label>
+								<input type="password" name="pass1" class="form-control" >
+							</div>
+							<div class="form-group">
+								<label>确认密码</label>
+								<input type="password" name="pass2" class="form-control" >
+							</div>
+							<div class="m-top-md p-top-sm">
+								<button style="width:100%" type="submit" class="btn btn-success block">提交注册</button>
+							</div>
+						</form>
+						<form action="{php HYBBS_URL('user','oauth_bind')}" method="post" id="bind" style="display:none">
+							
+				
+							<a onclick="hide_box('bind')" class="btn btn-default block">返回上一步</a>
+							<div class="font-12 text-center m-bottom-xs m-top-xs">绑定已有账号</div>
+							<div class="form-group m-bottom-md">
+								<label>现有账号</label>
+								<input type="text" name="user" class="form-control">
+							</div>
+							<div class="form-group">
+								<label>密码</label>
+								<input type="password" name="pass" class="form-control" >
+							</div>
+							<div class="m-top-md p-top-sm">
+								<button style="width:100%" type="submit" class="btn btn-success block">绑定</button>
+							</div>
+						</form>
+				</div><!-- ./sign-in-inner -->
+			</div><!-- ./sign-in-wrapper -->
+		</div><!-- /wrapper -->
+
+		<a href="" id="scroll-to-top" class="hidden-print"><i class="icon-chevron-up"></i></a>
+
+
+
+  	</body>
+</html>

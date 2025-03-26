@@ -1,0 +1,13 @@
+<?php $oauth_config = kv_get('clogin'); $opentype = explode(',',$oauth_config['opentype']); ?>
+<?php if(in_array('qq',$opentype)){?>
+    <a href="<?php echo url('oauth',['type'=>'qq'])?>" title="QQ登录" class="small mr-1"><span class="icon-qq"></span> QQ登录</a>
+<?php }?>
+<?php if(in_array('wx',$opentype)){?>
+    <a href="<?php echo url('oauth',['type'=>'wx'])?>" title="微信登录" class="small mr-1"><span class="icon-wechat"></span> 微信登录</a>
+<?php }?>
+<?php if(in_array('sina',$opentype)){?>
+    <a href="<?php echo url('oauth',['type'=>'sina'])?>" title="微博登录" class="small mr-1"><span class="icon-weibo"></span> 微博登录</a>
+<?php }?>
+<?php if(in_array('alipay',$opentype)){?>
+    <a href="<?php echo url('oauth',['type'=>'alipay'])?>" title="支付宝登录" class="small mr-1" style="line-height: 1.5rem;display: contents;"><img src="plugin/clogin/static/alipay.svg" style="width: 14px;"> 支付宝登录</a>
+<?php }?>

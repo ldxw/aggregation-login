@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta http-equiv="Cache-control" content="{if $_G['setting']['mobile'][mobilecachetime] > 0}{$_G['setting']['mobile'][mobilecachetime]}{else}no-cache{/if}" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+	<meta name="format-detection" content="telephone=no" />
+	<meta name="keywords" content="{if !empty($metakeywords)}{echo dhtmlspecialchars($metakeywords)}{/if}" />
+	<meta name="description" content="{if !empty($metadescription)}{echo dhtmlspecialchars($metadescription)} {/if},$_G['setting']['bbname']" />
+	<title><!--{if !empty($navtitle)}-->$navtitle - <!--{/if}--><!--{if empty($nobbname)}--> $_G['setting']['bbname'] - <!--{/if}--> {lang waptitle} - Powered by Discuz!</title>
+	<link rel="stylesheet" href="{$_G['siteurl']}source/plugin/clogin_qq/template/icon/style.css" type="text/css" media="all">
+	<script src="{$_G['siteurl']}source/plugin/clogin_qq/template/icon/jquery-1.8.3.min.js?{VERHASH}"></script>
+	<script type="text/javascript">var STYLEID = '{STYLEID}', STATICURL = '{STATICURL}', IMGDIR = '{IMGDIR}', VERHASH = '{VERHASH}', charset = '{CHARSET}', discuz_uid = '$_G[uid]', cookiepre = '{$_G[config][cookie][cookiepre]}', cookiedomain = '{$_G[config][cookie][cookiedomain]}', cookiepath = '{$_G[config][cookie][cookiepath]}', showusercard = '{$_G[setting][showusercard]}', attackevasive = '{$_G[config][security][attackevasive]}', disallowfloat = '{$_G[setting][disallowfloat]}', creditnotice = '<!--{if $_G['setting']['creditnotice']}-->$_G['setting']['creditnames']<!--{/if}-->', defaultstyle = '$_G[style][defaultextstyle]', REPORTURL = '$_G[currenturl_encode]', SITEURL = '$_G[siteurl]', JSPATH = '$_G[setting][jspath]';</script>
+	<script src="{$_G['siteurl']}{STATICURL}js/mobile/common.js?{VERHASH}" charset="{CHARSET}"></script>
+</head>
+
+<body class="bg">
+
+<div class="nav" style="background:{$sqqconnect['mcbg']}">
+	<div class="nav_left"><a href="home.php?mod=space&do=profile&mycenter=1&mobile=2"><img src="source/plugin/clogin_qq/template/icon/back.png"></a></div>
+	<div class="nav_right"><a href="forum.php?mobile=2"><img src="source/plugin/clogin_qq/template/icon/home.png"></a></div>
+	<div class="nav_center">
+		<a href="javascript:;">{lang clogin_qq:connect_config}</a>
+	</div>
+</div>
+<!--{if $connect_member and !$connect_member['isreset']}-->
+
+<p class="connect_config_bindinfo">{lang clogin_qq:connect_config_bindinfo}</p>
+<p class="connect_config_bind">{lang clogin_qq:connect_config_uid}：{$connect_member['openid']}</p>
+<p class="connect_config_bind">{lang clogin_qq:connect_config_nick}：{$connect_member['nickname']}</p>
+<br/>
+<div id="unbind">
+	<form action="plugin.php?id=clogin_qq:bind&pluginop=reset" method="post" id="unbindform" autocomplete="off">
+		<input type="hidden" name="formhash" value="{FORMHASH}">
+		<div class="unbind_desc">
+			<p>{lang clogin_qq:connect_config_reset}</p>
+		</div>
+		<div class="password">
+			<ul>
+				<li>
+					<input type="text" placeholder="{lang username}" name="newusername" id="newusername" class="px" value="" />
+				</li>
+				<!--{if $sqqconnect['reset_email']}-->
+				<li>
+					<input type="text" placeholder="{lang email}" name="newemail" id="newemail" class="px" value="" />
+				</li>
+				<!--{/if}-->
+				<li>
+					<input type="password" placeholder="{lang clogin_qq:connect_config_new_password}" name="newpassword1" id="newpassword1" class="px" value="" />
+				</li>
+				<li>
+
+					<input type="password" placeholder="{lang clogin_qq:connect_config_new_password_confirm}" name="newpassword2" id="newpassword2" class="px" value="" />
+				</li>
+			</ul>
+			<div class="">
+				<input type="hidden" name="op" value="unbind"/>
+				<button type="submit" name="connectsubmit" id="unbindsubmit" value="yes" class="submitbtn btn-default"><strong>{lang clogin_qq:connect_config_button}</strong></button>
+			</div>
+		</div>
+	</form>
+</div>
+
+<!--{elseif $connect_member and $connect_member['isregister']}-->
+<p class="connect_config_bindinfo">{lang clogin_qq:connect_config_bindinfo}</p>
+<p class="connect_config_bind">{lang clogin_qq:connect_config_uid}：{$connect_member['openid']}</p>
+<p class="connect_config_bind">{lang clogin_qq:connect_config_nick}：{$connect_member['nickname']}</p>
+<br/><br/>
+<p class="connect_config_bind"><button type="button" class="submitbtn btn-default" onclick="display('unbind')">{lang clogin_qq:connect_config_unbind_tip}</button></p>
+
+<div id="unbind" style="display:none;">
+	<form action="plugin.php?id=clogin_qq:bind&pluginop=unbind" method="post" id="unbindform" autocomplete="off">
+		<input type="hidden" name="formhash" value="{FORMHASH}">
+		<div class="unbind_desc">
+			<p>{lang clogin_qq:connect_config_unbind_desc1}<span style="color:#F26C4F;">$_G[username]</span>{lang clogin_qq:connect_config_unbind_desc2}</p>
+		</div>
+		<div class="password">
+			<ul>
+				<li>
+					<input type="password" placeholder="{lang clogin_qq:connect_config_new_password}" name="newpassword1" id="newpassword1" class="px" value="" />
+				</li>
+				<li>
+					<input type="password" placeholder="{lang clogin_qq:connect_config_new_password_confirm}" name="newpassword2" id="newpassword2" class="px" value="" />
+				</li>
+			</ul>
+			<div class="">
+				<input type="hidden" name="op" value="unbind"/>
+				<button type="submit" name="connectsubmit" id="unbindsubmit" value="yes" class="submitbtn btn-warning"><strong>{lang clogin_qq:connect_config_unbind_confirm}</strong></button>
+			</div>
+		</div>
+	</form>
+</div>
+
+<!--{elseif $connect_member}-->
+<p class="connect_config_bindinfo">{lang clogin_qq:connect_config_bindinfo}</p>
+<p class="connect_config_bind">{lang clogin_qq:connect_config_uid}：{$connect_member['openid']}</p>
+<p class="connect_config_bind">{lang clogin_qq:connect_config_nick}：{$connect_member['nickname']}</p>
+<br/><br/>
+<p class="connect_config_bind"><button type="button" class="submitbtn btn-default" onclick="display('unbind')">{lang clogin_qq:connect_config_unbind_tip}</button></p>
+
+<div id="unbind" style="display:none;">
+	<form action="plugin.php?id=clogin_qq:bind&pluginop=unbind" method="post" id="unbindform" autocomplete="off">
+		<input type="hidden" name="formhash" value="{FORMHASH}">
+		<div class="unbind_desc">
+			<p>{lang clogin_qq:connect_config_unbind_desc}</p>
+		</div>
+		<div class="password">
+			<input type="hidden" name="op" value="unbind"/>
+			<button type="submit" name="connectsubmit" id="unbindsubmit" value="yes" class="submitbtn btn-warning"><strong>{lang clogin_qq:connect_config_unbind_confirm}</strong></button>
+		</div>
+	</form>
+</div>
+
+<!--{else}-->
+<p class="connect_config_bindinfo">{lang clogin_qq:connect_config_title}</p>
+<div id="unbind" style="padding-top: 0;">
+	<div class="unbind_desc">
+		<p class="">{lang clogin_qq:connect_config_desc}</p>
+	</div>
+	<div class="mtw bm2 cl">
+		<div class="bm2_b bw0 hm" style="padding-top: 40px;">
+			<a href="plugin.php?id=clogin_qq:bind&pluginop=bind" style="color:#fff;" class="submitbtn btn-primary">{lang clogin_qq:connect_mobile_bind}</a>
+			<p class="mtn xg1" style="font-size: 13px; margin-top: 10px; color: #999;">{lang clogin_qq:connect_config_bind}</p>
+		</div>
+
+	</div>
+</div>
+<!--{/if}-->
+<script>
+function display(id) {
+	var obj = $("#"+id);
+	if(obj.is(":hidden")){
+		obj.slideDown()
+	}else{
+		obj.slideUp()
+	}
+}
+</script>
+</body>
+
+</html>
+<!--{eval updatesession();}-->
+<!--{if defined('IN_MOBILE')}-->
+<!--{eval output();}-->
+<!--{else}-->
+<!--{eval output_preview();}-->
+<!--{/if}-->

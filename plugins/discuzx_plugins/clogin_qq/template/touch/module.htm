@@ -1,0 +1,184 @@
+{eval
+function sqqtpl_mobile_login() {
+global $_G,$loginurl;
+}
+<!--{block return}-->
+<div class="btn_qqlogin"><a href="$loginurl" class="pn">{lang clogin_qq:connect_mobile_login}</a></div>
+<!--{/block}-->
+<!--{eval return $return;}-->
+{eval
+}
+
+function sqqtpl_mobile_profilemenu() {
+global $_G;
+}
+<!--{block return}-->
+<div id="sqqtpl_mobile_profilemenu" style="display:none;">
+<li><a href="$_G[siteurl]plugin.php?id=clogin_qq:bind">{lang clogin_qq:connect_config}</a></li>
+</div>
+<script>$('.myinfo_list ul').append(($('#sqqtpl_mobile_profilemenu').html()));</script>
+<!--{/block}-->
+<!--{eval return $return;}-->
+{eval
+}
+
+function sqqtpl_mobile_register() {
+global $_G,$sectpl,$secqaacheck,$seccodecheck;
+$loginhash = 'L'.random(4);
+}
+<!--{block return}-->
+<div class="sqqctpl_register_box">
+    <div class="sqq_register_avt">
+        <img src="$_G['cookie']['sqqconnect_guestinfo_faceimg']" />
+        <p class="dse">Hi,$_G['cookie']['sqqconnect_guestinfo_nickname']</p>
+    </div>
+    <div class="sqq_register_form">
+        <div class="sqq_hd">
+            <a id="sqq_create" onclick="sqq_login_toggle('sqq_create');" class="default" href="javascript:;">{lang connect_register_profile}</a>
+            <a id="sqq_bind" onclick="sqq_login_toggle('sqq_bind');" href="javascript:;">{lang connect_register_bind}</a>
+        </div>
+        <div class="sqq_toggle_box">
+            <div id="sqq_create_toggle">
+                <form method="post" autocomplete="off" name="register" id="registerform" action="plugin.php?id=clogin_qq:member&op=register">
+                        <input type="hidden" name="regsubmit" value="yes" />
+                        <input type="hidden" name="formhash" value="{FORMHASH}" />
+                        <!--{eval $dreferer = str_replace('&amp;', '&', dreferer());}-->
+                        <input type="hidden" name="referer" value="$dreferer" />
+                        <input type="hidden" name="activationauth" value="{if $_GET[action] == 'activation'}$activationauth{/if}" />
+                        <input type="hidden" name="agreebbrule" value="$bbrulehash" id="agreebbrule" checked="checked" />
+                        <ul>
+                            <li><input type="text" tabindex="1" id="username" class="px p_fre" size="30" autocomplete="off" value="" name="{$_G['setting']['reginput']['username']}" placeholder="{lang registerinputtip}" fwin="login"></li>
+                            <li><input type="email" tabindex="4" class="px p_fre" size="30" autocomplete="off" value="" name="{$_G['setting']['reginput']['email']}" placeholder="{lang registeremail}" fwin="login"></li>
+                            <!--{if empty($invite) && ($_G['setting']['regstatus'] == 2 || $_G['setting']['regstatus'] == 3)}-->
+                            <li><input type="text" name="invitecode" autocomplete="off" tabindex="5" class="px p_fre" size="30" value="" placeholder="{lang invite_code}" fwin="login"></li>
+                            <!--{/if}-->
+                            <!--{if $_G['setting']['regverify'] == 2}-->
+                            <li><input type="text" name="regmessage" autocomplete="off" tabindex="6" class="px p_fre" size="30" value="" placeholder="{lang register_message}" fwin="login"></li>
+                            <!--{/if}-->
+
+                            <!--{loop $_G['cache']['fields_register'] $field}-->
+                            <!--{if $field[formtype]=='text'}-->
+                                <li><input type="text" tabindex="4" class="px p_fre" size="30" autocomplete="off" value="" name="$field[fieldid]" id="$field[fieldid]" placeholder="$field[title]"></li>
+                            <!--{/if}-->
+                            <!--{/loop}-->
+                            <!--{if $secqaacheck || $seccodecheck}-->
+                            <li>
+                                <!--{subtemplate common/seccheck}-->
+                            </li>
+                            <!--{/if}-->
+                        </ul>
+
+
+                    <button value="true" name="regsubmit" type="submit" class="formdialog sqqc_button">{lang clogin_qq:connect_register_finish}</button>
+                </form>
+            </div>
+            <div id="sqq_bind_toggle" style="display:none;">
+                <form id="loginform" method="post" action="plugin.php?id=clogin_qq:member&op=bind&loginsubmit=yes&loginhash=$loginhash&mobile=2" onsubmit="{if $_G['setting']['pwdsafety']}pwmd5('password3_$loginhash');{/if}" >
+                    <input type="hidden" name="formhash" id="formhash" value='{FORMHASH}' />
+                    <input type="hidden" name="referer" id="referer" value="$dreferer" />
+                    <input type="hidden" name="fastloginfield" value="username">
+                    <input type="hidden" name="cookietime" value="2592000">
+                    <!--{if $auth}-->
+                    <input type="hidden" name="auth" value="$auth" />
+                    <!--{/if}-->
+                        <ul>
+                            <li><input type="text" value="" tabindex="1" class="px" size="30" autocomplete="off" value="" name="username" placeholder="{lang inputyourname}" fwin="login"></li>
+                            <li><input type="password" tabindex="2" class="px" size="30" value="" name="password" placeholder="{lang login_password}" fwin="login"></li>
+                            <li class="sqq_questionli">
+                                <div class="login_select">
+                                <span class="login-btn-inner">
+                                    <span class="login-btn-text">
+                                        <span class="span_question">{lang security_question}</span>
+                                    </span>
+                                    <span class="icon-arrow">&nbsp;</span>
+                                </span>
+                                    <select id="questionid_{$loginhash}" name="questionid" class="sel_list">
+                                        <option value="0" selected="selected">{lang security_question}</option>
+                                        <option value="1">{lang security_question_1}</option>
+                                        <option value="2">{lang security_question_2}</option>
+                                        <option value="3">{lang security_question_3}</option>
+                                        <option value="4">{lang security_question_4}</option>
+                                        <option value="5">{lang security_question_5}</option>
+                                        <option value="6">{lang security_question_6}</option>
+                                        <option value="7">{lang security_question_7}</option>
+                                    </select>
+                                </div>
+                            </li>
+                            <li class="bl_none answerli" style="display:none;"><input type="text" name="answer" id="answer_{$loginhash}" class="px p_fre" size="30" placeholder="{lang security_a}"></li>
+                        </ul>
+                        <!--{if $seccodecheck}-->
+                        <!--{subtemplate common/seccheck}-->
+                        <!--{/if}-->
+                    <button tabindex="3" value="true" name="submit" type="submit" class="formdialog sqqc_button"><span>{lang clogin_qq:connect_register_bind_window_button}</span></button>
+                </form>
+            </div>
+        </div>
+        <div class=""><a style="margin-top:7px; font-size:14px;color:#999; display: inline-block;" href="$_G['siteurl']">{lang clogin_qq:connect_return_index}</a></div>
+    </div>
+</div>
+<style>
+    .sqqctpl_register_box{display:block;position:fixed;bottom:0;left:0;height:100%;width:100%;background:#fff;z-index:118;}
+    .sqq_register_avt {width:100%;margin:40px auto;text-align:center;}
+    .sqq_register_avt img{width:50px;height:50px;border-radius:50%;}
+    .sqq_register_avt p.dse{font-size:16px;color:#666;margin-top:7px;}
+    .sqq_register_form{width:80%; margin:0 10%;}
+    .sqq_register_form .sqq_hd{height:40px;line-height:40px;display: flex;}
+    .sqq_register_form .sqq_hd a{width:50%; text-align:center;border-bottom:solid 2px #f3f3f3;font-size:16px;color:#888;}
+    .sqq_register_form .sqq_hd a.default{border-bottom:solid 2px #0c99f2;}
+
+    .sqq_toggle_box ul{margin-top: 15px; border: solid 1px #f3f3f3;}
+    .sqq_toggle_box ul li{height: 38px; line-height: 38px; font-size: 14px; border-bottom: solid 1px #f3f3f3;}
+    .sqq_toggle_box ul li:last-child{border:none;}
+    .sqq_toggle_box ul li input.px{border: none; height: 38px; line-height: 38px; padding: 0; text-indent: 10px;width:100%;}
+    .sqq_toggle_box ul li.sqq_questionli{height: 38px; line-height: 38px; font-size: 14px;}
+    .sec_code{padding:0;}
+
+    .sqq_toggle_box .login_select { display: block; position: relative;}
+    .sqq_toggle_box .login_select .login-btn-inner { display: block; font-size: 14px; font-weight:400; min-width: 0.75em; overflow: hidden; position: relative; text-overflow: ellipsis; white-space: nowrap; }
+    .sqq_toggle_box .login_select select {text-indent:10px; position: absolute; top: 0; width: 100%; z-index: 2; cursor: pointer; height: 3em; left: 0; max-height: 100%; min-height: 100%; opacity: 0.0001;}
+    .sqq_toggle_box .login-btn-text { float:left; text-indent: 10px;}
+    .sqq_toggle_box .login_select .icon-arrow { background: url($_G['siteurl']source/plugin/clogin_qq/img/icon_arrow.png) no-repeat 15px 17px; width:30px; height:30px; float:right; }
+
+
+    .sqqc_button{background: #2e9de6; height: 38px; line-height: 38px; width: 100%;font-size: 15px; text-align: center; display: block; color: #fff; border-radius: 5px;border:none;
+    margin-top:20px;}
+</style>
+<script>
+    $('#username').val("$_G['cookie']['sqqconnect_guestinfo_nickname']")
+    function sqq_login_toggle(toggleid){
+        if(toggleid=='sqq_create'){
+            $('#sqq_bind').removeClass('default');
+            $('#sqq_create').addClass('default');
+            $('#sqq_bind_toggle').fadeOut();
+            $('#sqq_create_toggle').fadeIn();
+        }else if(toggleid == 'sqq_bind'){
+            $('#sqq_create').removeClass('default');
+            $('#sqq_bind').addClass('default');
+            $('#sqq_create_toggle').fadeOut();
+            $('#sqq_bind_toggle').fadeIn();
+        }
+    }
+
+        (function() {
+            $(document).on('change', '.sel_list', function() {
+                var obj = $(this);
+                $('.span_question').text(obj.find('option:selected').text());
+                if(obj.val() == 0) {
+                    $('.answerli').css('display', 'none');
+                    $('.questionli').addClass('bl_none');
+                } else {
+                    $('.answerli').css('display', 'block');
+                    $('.questionli').removeClass('bl_none');
+                }
+            });
+        })();
+
+</script>
+<!--{/block}-->
+<!--{eval return $return;}-->
+{eval
+}
+
+}
+
+

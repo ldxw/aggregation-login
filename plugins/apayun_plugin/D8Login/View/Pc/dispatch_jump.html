@@ -1,0 +1,116 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Transitional//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml'>
+<head>
+	<meta http-equiv='Content-Type' content='text/html; charset=utf-8' />
+	<title>消息提示 - {$common_site_name}</title>
+	<script src="https://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
+	<style>
+		* {margin:0;padding:0}
+		a{color:#00aadb; text-decoration:none}
+		a:hover {color:#c00; text-decoration:underline}
+		li{list-style:none;text-overflow:ellipsis;overflow:hidden;white-space:nowrap}
+		body{font:12px/1.5em Arial,Verdana,Helvetica,sans-serif;color:#333}
+
+		.msgbox{width:600px; margin:150px auto;text-align:center; border:6px solid #e4f4ff}
+		.msgbox dl{border:1px solid #88bfc9; padding:2px}
+		.msgbox dl dt{height:28px; line-height:28px; background:#00b3d4; color:#fff}
+		.msgbox dl .msg{padding:25px 0 20px 0}
+		.msgbox dl .jump{padding:0 0 30px 0}
+
+		.msg-warp {
+			width: 700px;
+			height: 220px;
+			padding: 10px;
+			margin: 200px auto;
+			background-color: #e5f5fb;
+		}
+		.msg-box {
+			position: relative;
+			height: 100%;
+			padding: 2px 30px;
+			border: 1px solid #009fd9;
+			background-color: #fff;
+		}
+		.msg-box h4 {
+			position: absolute;
+			top: 2px;
+			left: 2px;
+			width: 400px;
+			height: 28px;
+			line-height: 28px;
+			font-weight: 400;
+			text-indent: 12px;
+			color: #00aadb;
+		}
+		.message-outer {
+			text-align: center;
+		}
+		.tip-msg {
+			display: inline-block;
+			padding-left: 40px;
+			color: #545454;
+			font-size: 16px;
+			height: 32px;
+			line-height: 32px;
+			background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNS1jMDIxIDc5LjE1NTc3MiwgMjAxNC8wMS8xMy0xOTo0NDowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIDIwMTQgKFdpbmRvd3MpIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOkVGOUY5REI4MDhBNzExRTc4NjNFREE1MkRBMDdBRDNBIiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOkVGOUY5REI5MDhBNzExRTc4NjNFREE1MkRBMDdBRDNBIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6RUY5RjlEQjYwOEE3MTFFNzg2M0VEQTUyREEwN0FEM0EiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6RUY5RjlEQjcwOEE3MTFFNzg2M0VEQTUyREEwN0FEM0EiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz4Pv8hmAAACTElEQVR42qyXzytEURTHn/Ejk18zfseGzEII2dhIycqwU2KNnY0Sluyw4Q9QlhRWfjQWkw3ZTZpCitihKTF+jEj5Hs7Tw8xz7n3v1Ae9eefc73XvOXNOmrF0aggtF3SDDtAMqkEBf3YPLsAh2AVb4FESNE0gIAAmwADIEYp9AstgFpzZveix+SwbzIAjMKSwuMHvDrHvLMdSElADDnjnWYa+ke84xwpIBbSAfT5nt4xi7XFsWwGkMgTKDPetjGMHUgnwgjVQIgj2Bro+L/EXfeBd4Eex13mtPwKmQJNwNxu8G9NWOfUk1shr/RBAl25U4d+ZLMfvFPxHzaMwBUyCTIUAviTPihX8M3nNTwF5XGRUrFD4zM76aW0SEFQsMmR+FwTQmkES0KmRUm4IIOv08K10Q4BfI06jhzNA1bzWXObdp2vEqSEB+ZqVrcjh7snyPQ5Ka6nD8/8uRHFN30IXBMRJwLkLR6Ar4JwERDWd6yx/12rGiGbgRxgMaziPcUml2z+iKSBMPSGV4iuNaujUnkE5HcEDWNEIQKKnmSsNf2paH8yumIrRicI34i2oB9eWbudY4TK+8R06M+sAZcK8gvqQZXGyG7Cj4L9gtuu/OyJpRlQmeVYhvfnJOiKyBOgFMUGQdu77TRvkZ/9ZjNd4tpuMqHXeFnbGl/y7SvDuDfcekf/mAnqhTXgcVcLFoxwzIp2M6IK0gjnw6iDXXzlGa6oZ0e7b8IVHM0q3Reu5CSzBPg0c48XJdGwdz3t+jec+S0tuHc83peP5hwADAKbDbMVl9TtXAAAAAElFTkSuQmCC) no-repeat left center;
+			margin-top: 85px;
+		}
+		.msg-footer {
+			position: absolute;
+			left: 2px;
+			right: 2px;
+			bottom: 2px;
+			height: 32px;
+			line-height: 32px;
+			background-color: #e5f8ff;
+			text-align: center;
+			color: #009fd9;
+		}
+	</style>
+</head>
+<body>
+	<div class="msg-warp">
+		<div class="msg-box">
+			<h4>{$common_site_name}提醒您：</h4>
+			<div class="message-outer">
+				<span class="tip-msg">
+
+					<?php if(isset($message)) {?>
+					<?php echo $message;?>
+					<?php }else{?>
+					<?php echo $error; ?>
+					<?php }?>
+			</span>
+			</div>
+			<!--
+			自定义跳转时间
+			<?php
+			if(isset($customSecond)){
+				$waitSecond = $waitSecond + $customSecond;
+			}else{
+				$waitSecond = $waitSecond + $customSecond;
+			}
+			if($waitSecond < 0){
+				$waitSecond = 0;
+			}
+			?>
+			-->
+			<p class="msg-footer"><a href="<?php echo($jumpUrl); ?>"><span id="wait">{$waitSecond}</span>秒后页面自动跳转，如果浏览器未跳转请点击这里立即跳转。</a></p>
+		</div>
+	</div>
+	<script type="text/javascript">
+		(function () {
+			var wait = $("#wait"), href = "{$jumpUrl}";
+			var time = parseInt(wait.text());
+			var interval = setInterval(function () {
+				time = time - 1;
+				wait.text(time);
+				if (time <= 0) {
+					location.href = href;
+					clearInterval(interval);
+				}
+			}, 1000);
+		})();
+	</script>
+</body>
+</html>

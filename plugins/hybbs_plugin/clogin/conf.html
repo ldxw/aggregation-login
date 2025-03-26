@@ -1,0 +1,39 @@
+<div class="form-group">
+	<label class="col-lg-3 control-label">登录接口地址</label>
+	<div class="col-lg-9">
+		<input class="form-control" type="text" name="appurl" value="{$inc.appurl}">
+		<span class="help-block">接口地址必须以http://或https://开头，以/结尾</span>
+	</div>
+</div>
+<div class="form-group">
+	<label class="col-lg-3 control-label">APPID</label>
+	<div class="col-lg-9">
+		<input class="form-control" type="text" name="appid" value="{$inc.appid}">
+		<span class="help-block"></span>
+	</div>
+</div>
+<div class="form-group">
+	<label class="col-lg-3 control-label">APPKEY</label>
+	<div class="col-lg-9">
+		<input class="form-control" type="text" name="appkey" value="{$inc.appkey}">
+		<span class="help-block"></span>
+	</div>
+</div>
+<div class="form-group">
+	<label class="col-lg-3 control-label">开启的登录方式</label>
+	<div class="col-lg-9">
+		<label><input type="checkbox" name="opentype[]" value="qq" {if is_array($inc['opentype']) && in_array('qq',$inc['opentype'])}checked{/if}>
+		QQ</label>&nbsp;
+		<label><input type="checkbox" name="opentype[]" value="wx" {if is_array($inc['opentype']) && in_array('wx',$inc['opentype'])}checked{/if}>
+		微信</label>&nbsp;
+	</div>
+</div>
+<div class="form-group">
+	<label class="col-lg-3 control-label">是否自动注册</label>
+	<div class="col-lg-9">
+		<label><input type="radio" name="autoreg" value="1" {if $inc['autoreg']==1}checked{/if}>
+		自动注册</label>&nbsp;
+		<label><input type="radio" name="autoreg" value="0" {if $inc['autoreg']==0}checked{/if}>
+		选择绑定或注册</label>&nbsp;
+	</div>
+</div>

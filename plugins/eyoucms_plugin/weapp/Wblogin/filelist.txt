@@ -1,0 +1,3 @@
+application/plugins/controller/Wblogin.php
+template/plugins/Wblogin
+weapp/Wblogin

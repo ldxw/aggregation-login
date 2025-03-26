@@ -1,0 +1,27 @@
+<div class="form-group">
+    <label class="control-label col-xs-12 col-sm-2">第三方登录:</label>
+    <div class="col-xs-12 col-sm-4">
+        {if in_array('wx', $types)}
+        {if in_array('wx', $typelist)}
+            <a href="{:addon_url('clogin/index/unbind', [':type'=>'wx'], false)}" data-toggle="tooltip" data-title="点击取消绑定微信登录" class="btn btn-primary btn-sm btn-cancel" onclick="return confirm('取消绑定后将无法通过微信一键登录，是否确定？');"><i class="fa fa-wechat"></i></a>
+        {else /}
+            <a href="{:addon_url('clogin/index/bind', [':type'=>'wx'], false)}" data-toggle="tooltip" data-title="点击绑定微信登录" class="btn btn-default btn-sm btn-gray"><i class="fa fa-wechat"></i></a>
+        {/if}
+        {/if}
+        {if in_array('qq', $types)}
+        {if in_array('qq', $typelist)}
+            <a href="{:addon_url('clogin/index/unbind', [':type'=>'qq'], false)}" data-toggle="tooltip" data-title="点击取消绑定QQ登录" class="btn btn-primary btn-sm btn-cancel" onclick="return confirm('取消绑定后将无法通过QQ一键登录，是否确定？');"><i class="fa fa-qq"></i></a>
+        {else /}
+            <a href="{:addon_url('clogin/index/bind', [':type'=>'qq'], false)}" data-toggle="tooltip" data-title="点击绑定QQ登录" class="btn btn-default btn-sm btn-gray"><i class="fa fa-qq"></i></a>
+        {/if}
+        {/if}
+        {if in_array('sina', $types)}
+        {if in_array('sina', $typelist)}
+            <a href="{:addon_url('clogin/index/unbind', [':type'=>'sina'], false)}" data-toggle="tooltip" data-title="点击取消绑定微博登录" class="btn btn-primary btn-sm btn-cancel" onclick="return confirm('取消绑定后将无法通过微博一键登录，是否确定？');"><i class="fa fa-weibo"></i></a>
+        {else /}
+            <a href="{:addon_url('clogin/index/bind', [':type'=>'sina'], false)}" data-toggle="tooltip" data-title="点击绑定微博登录" class="btn btn-default btn-sm btn-gray"><i class="fa fa-weibo"></i></a>
+        {/if}
+        {/if}
+    </div>
+</div>
+

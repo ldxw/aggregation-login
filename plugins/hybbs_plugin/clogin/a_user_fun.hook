@@ -1,0 +1,281 @@
+//<?php
+
+//登陆按钮
+public function oauth(){
+	if(IS_LOGIN)
+		return header("location: ".WWW);
+
+	if(!is_plugin_on("clogin"))
+		return $this->message("登录插件未开启!");
+	
+	//记录来源地址
+	$re_url = X("server.HTTP_REFERER");
+	if(strpos($re_url,WWW)!= -1 && strpos($re_url,'user')===false)
+		cookie('re_url',$re_url);
+
+	$config = get_plugin_inc("clogin");
+	$config['callback'] = HYBBS_URLA('user','oauth_callback');
+	$opentype = $config['opentype'];
+	
+	$type = X("get.type");
+	if(!$type || !in_array($type, $opentype)) return $this->message('该登录方式未开启');
+	include PLUGIN_PATH . '/clogin/Oauth.class.php';
+	$oauth = new \Oauth($config);
+	session('[start]');
+	$arr = $oauth->login($type);
+	if(isset($arr['code']) && $arr['code']==0){
+		header("location: ". $arr['url']);
+	}elseif(isset($arr['code'])){
+		return $this->message('获取登录地址失败：'.$arr['msg']);
+	}else{
+		return $this->message('获取登录地址失败');
+	}
+}
+//绑定账号
+public function oauth_bind(){
+	if(IS_LOGIN)
+		return header("location: ".WWW);
+	if(!is_plugin_on("clogin"))
+		return $this->message("登录插件未开启!");
+	session('[start]');
+	$type = session('Oauth_type');
+	$openid = session('Oauth_openid');
+	if(IS_POST){
+		
+		$connect = S("connect");
+		$bool = $connect->has(array(
+			'type'=>$type,
+			'openid'=>$openid
+		));
+		if($bool){
+			return $this->message("这个".($type=='qq'?'QQ':'微信')."已经绑定了其他账号，无法重复绑定");
+		}
+		
+		$user = X("post.user");
+		$pass = X("post.pass");
+		$UserLib = L("User");
+		$msg = $UserLib->check_user($user);
+		if(!empty($msg))
+			return $this->message($msg);
+		if(!$UserLib->check_pass($pass))
+			return $this->message('密码不符合规则');
+
+
+		$User = M("User");
+		if(!$User->is_user($user))
+			return $this->message("账号不存在!");
+		$data = $User->find("*",array('user'=>$user));
+
+		if(!empty($data)){
+			$UserLib = L("User");
+			if($data['pass'] == $UserLib->md5_md5($pass,$data['salt'])){ //密码正确
+				unset($bool);
+				$bool = $connect->has(array(
+					'uid'=>$data['uid'],
+					'type'=>$type
+				));
+				if($bool){ //判断账号是否绑定过QQ
+					return $this->message($data['user']." 已经绑定过".($type=='qq'?'QQ':'微信'));
+				}
+
+				$connect->insert(array(
+					'uid'=>$data['uid'],
+					'type'=>$type,
+					'openid'=>$openid,
+					'addtime'=>date("Y-m-d H:i:s")
+				));
+
+				cookie('HYBBS_HEX',$UserLib->set_cookie($data));
+				
+				$this->init_user();
+				$re_url = cookie('re_url');
+				cookie('re_url',null);
+				session('Oauth_type', null);
+				session('Oauth_openid', null);
+				session('Oauth_nickname', null);
+				session('Oauth_faceimg', null);
+				return header("location: ".$re_url);
+			}else{
+				return $this->message("密码错误!");
+			}
+		}else{
+			return $this->message('账号数据不存在!');
+		}
+	}
+}
+//直接注册 新注册
+public function oauth_reg($type = '', $openid = ''){
+	if(IS_LOGIN)
+		return header("location: ".WWW);
+	if(!is_plugin_on("clogin"))
+		return $this->message("登录插件未开启!");
+	$is_auto = true;
+	if(empty($type) || empty($openid)){
+		$is_auto = false;
+		session('[start]');
+		$type = session('Oauth_type');
+		$openid = session('Oauth_openid');
+	}
+
+	if(IS_POST || X('post.gn') == 'create'){
+
+		$connect = S("connect");
+		$bool = $connect->has(array(
+			'type'=>$type,
+			'openid'=>$openid
+		));
+		if($bool){
+			return $this->message("这个".($type=='qq'?'QQ':'微信')."已经绑定了其他账号，无法重复绑定");
+		}
+		
+		$user = X("post.user");
+		$pass1 = X("post.pass1");
+		$pass2 = X("post.pass2");
+		$email = X("post.email");
+		
+		if(X("post.gn") == 'create'){
+			$bool = true;
+			$User = M("User");
+			do{
+				$user = rand_str(12);
+				$bool = $User->is_user($user);
+			}while($bool);
+			
+			$bool = true;
+			do{
+				$email = rand_str(12).'@168.com';
+				$bool = $User->is_email($email);
+			}while($bool);
+			
+			$pass1 = $pass2 = rand_str(12);
+		}
+		
+		if($pass1 != $pass2)
+			return $this->message("两次密码不一致");
+		$UserLib = L("User");
+		$msg = $UserLib->check_user($user);
+		if(!empty($msg))
+			return $this->message($msg);
+		if(!$UserLib->check_pass($pass1))
+			return $this->message('密码不符合规则');
+		$msg = $UserLib->check_email($email);
+		if(!empty($msg))
+			return $this->message($msg);
+		$User = M("User");
+		if($User->is_user($user))
+			return $this->message("账号已经存在!");
+		if($User->is_email($email))
+			return $this->message("邮箱已经存在!");
+		$User->add_user($user,$pass1,$email);
+		$id = $User->user_to_uid($user);
+		if(!empty($id)){ //判断用户存在性
+			$faceimg = session('Oauth_faceimg');
+			if(!empty($faceimg)){
+				$saveName = md5($id);
+				$filepath = INDEX_PATH . 'upload/avatar/'.$saveName.'.jpg';
+				file_put_contents($filepath, file_get_contents($faceimg));
+				$image = new \Lib\Image();
+				$image->open(INDEX_PATH . 'upload/avatar/'.$saveName.".jpg");
+				// 生成一个缩放后填充大小150*150的缩略图并保存为thumb.jpg
+				$image->thumb(250, 250,$image::IMAGE_THUMB_CENTER)->save(INDEX_PATH . 'upload/avatar/'.$saveName."-a.jpg");
+				$image->thumb(150, 150,$image::IMAGE_THUMB_CENTER)->save(INDEX_PATH . 'upload/avatar/'.$saveName."-b.jpg");
+				$image->thumb(50  , 50,$image::IMAGE_THUMB_CENTER)->save(INDEX_PATH . 'upload/avatar/'.$saveName."-c.jpg");
+			}
+			$connect->insert(
+				array(
+					'uid'=>$id,
+					'type'=>$type,
+					'openid'=>$openid,
+					'addtime'=>date("Y-m-d H:i:s")
+				)
+			);
+			cookie('HYBBS_HEX',L("User")->set_cookie($User->read($id)));
+			$this->init_user();
+			$re_url = cookie('re_url');
+			cookie('re_url',null);
+			if(!$is_auto){
+				session('Oauth_type', null);
+				session('Oauth_openid', null);
+				session('Oauth_nickname', null);
+				session('Oauth_faceimg', null);
+			}
+			return header("location: ".$re_url);
+		}
+		return header("location: ".WWW);
+	}
+}
+//callback 函数
+public function oauth_callback(){
+	if(IS_LOGIN)
+		return header("location: ".WWW);
+	if(!is_plugin_on("clogin"))
+		return $this->message("登录插件未开启!");
+	$config = get_plugin_inc("clogin");
+	$config['callback'] = HYBBS_URLA('user','oauth_callback');
+
+	if(IS_GET){
+		session('[start]');
+		if(!X('get.state') || X('get.state') != session('Oauth_state')){
+			return $this->message("The state does not match. You may be a victim of CSRF.");
+		}
+		include PLUGIN_PATH . '/clogin/Oauth.class.php';
+		$oauth = new \Oauth($config);
+		$arr = $oauth->callback();
+        if (isset($arr['code']) && $arr['code']==0) {
+			$type=$arr['type'];
+			$openid=$arr['social_uid'];
+			
+			$connect = S("connect");
+			//判断是否已经绑定
+			$uid = $connect->find("uid", array(
+				'type' => $type,
+				'openid' => $openid
+			));
+			if(!empty($uid)){ //已绑定,直接登录
+				$data = M("User")->find("*",array(
+					'uid'=>$uid
+				));
+				cookie('HYBBS_HEX',L("User")->set_cookie($data));
+				$this->init_user();
+				$re_url = cookie('re_url');
+				cookie('re_url',null);
+				return header("location: ".$re_url); //跳回登陆地址
+            }else{
+				if($config['autoreg'] == 1){
+					$_POST['gn']='create';
+					$this->oauth_reg($type, $openid);
+				}else{
+					session('Oauth_type', $type);
+					session('Oauth_openid', $openid);
+					session('Oauth_nickname', $arr['nickname']);
+					session('Oauth_faceimg', $arr['faceimg']);
+					return header("location: ".HYBBS_URLA('user','oauth_page'));
+				}
+			}
+
+        }elseif(isset($arr['code'])){
+			return $this->message('登录失败：'.$arr['msg']);
+		}else{
+			return $this->message('获取登录数据失败');
+		}
+	}
+}
+//绑定与注册页面
+public function oauth_page(){
+	if(IS_LOGIN)
+		return header("location: ".WWW);
+	if(!is_plugin_on("clogin"))
+		return $this->message("登录插件未开启!");
+	session('[start]');
+	$type = session('Oauth_type');
+	$openid = session('Oauth_openid');
+	if(!$type || !$openid){
+		return header("location: ".HYBBS_URLA('user','login'));
+	}
+	$this->v("title", $type=='qq'?'QQ登录授权':'微信登录授权');
+	$this->v("icon", $type=='qq'?'fa-qq':'fa-wechat');
+	$this->v("data", ['nickname'=>session('Oauth_nickname'), 'faceimg'=>session('Oauth_faceimg')]);
+	$this->display("plugin.clogin::index");
+}
+
+

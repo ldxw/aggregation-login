@@ -1,0 +1,12 @@
+{
+    "name": "彩虹聚合登录",
+    "brief": "免申请使用QQ、微信、微博等快捷登录，支持自动生成用户名、获取头像、自动注册、绑定解绑账号。",
+    "version": "1.0",
+    "bbs_version": "4.0",
+    "installed": 0,
+    "enable": 0,
+    "hooks_rank": {
+        "my_profile_login_date_after.htm": 999
+    },
+    "dependencies": []
+}

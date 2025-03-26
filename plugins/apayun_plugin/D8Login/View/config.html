@@ -1,0 +1,36 @@
+<table cellspacing="0" cellpadding="0" class="inner-table edit-table">
+    <tbody>
+    <tr>
+        <th><span class="necessary-mark">*</span>接口地址：</th>
+        <td>
+            <input type="text" name="config[apiurl]" class="input" value="{$data.config.apiurl}" placeholder="接口地址必须以http://或https://开头，以/结尾">
+        </td>
+    </tr>
+	<tr>
+        <th><span class="necessary-mark">*</span>APPID：</th>
+        <td>
+            <input type="text" name="config[appid]" class="input" value="{$data.config.appid}">
+        </td>
+    </tr>
+    <tr>
+        <th><span class="necessary-mark">*</span>APPKEY：</th>
+        <td>
+            <input type="text" name="config[appkey]" class="input" value="{$data.config.appkey}">
+        </td>
+    </tr>
+    <volist name="data.login_types" id="typename">
+        <tr>
+            <th><span class="necessary-mark">*</span>{$typename}登录：</th>
+            <td>
+                <div class="ny-radio">
+                    <input id="{$key}login-1" name="config[{$key}]" type="radio" value="1" <if condition="$data['config'][$key] eq '1'">checked</if>>
+                    <label for="{$key}login-1" class="ny-radio-label">开启</label>
+                </div>
+                <div class="ny-radio" style="width: auto;">
+                    <input id="{$key}login-0" name="config[{$key}]" type="radio" value="0" <if condition="$data['config'][$key] eq '0' or $data['config'][$key] eq null">checked</if>>
+                    <label for="{$key}login-0" class="ny-radio-label">关闭</label>
+                </div>
+            </td>
+        </tr>
+    </volist>
+</table>

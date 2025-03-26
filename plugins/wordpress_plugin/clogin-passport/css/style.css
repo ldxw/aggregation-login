@@ -1,0 +1,6 @@
+.wrap {
+	clear: both;
+}
+a.toplevel_page_clogin-passport .wp-menu-image:before {
+	content: "\f337";
+}

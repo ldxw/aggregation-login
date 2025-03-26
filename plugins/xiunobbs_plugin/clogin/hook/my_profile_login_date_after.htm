@@ -1,0 +1,13 @@
+<?php $oauth_config = kv_get('clogin'); $opentype = explode(',',$oauth_config['opentype']); ?>
+<?php if(in_array('qq',$opentype)){?>
+    <br><span class="icon-qq"></span> QQ登录：<?php if($openid = is_clogin_bind($uid,'qq')){echo '<span class="text-success" title="'.$openid.'">已绑定</span><a href="'.url('oauth-unbind',['type'=>'qq']).'" onclick="return confirm(\'解绑后将无法通过QQ一键登录，是否确定解绑？\');">【解绑】</a>';}else{echo '<a href="'.url('oauth',['type'=>'qq']).'">【前往绑定】</a>';}?>
+<?php }?>
+<?php if(in_array('wx',$opentype)){?>
+    <br><span class="icon-wechat"></span> 微信登录：<?php if($openid = is_clogin_bind($uid,'wx')){echo '<span class="text-success" title="'.$openid.'">已绑定</span><a href="'.url('oauth-unbind',['type'=>'wx']).'" onclick="return confirm(\'解绑后将无法通过微信一键登录，是否确定解绑？\');">【解绑】</a>';}else{echo '<a href="'.url('oauth',['type'=>'wx']).'">【前往绑定】</a>';}?>
+<?php }?>
+<?php if(in_array('sina',$opentype)){?>
+    <br><span class="icon-weibo"></span> 微博登录：<?php if($openid = is_clogin_bind($uid,'sina')){echo '<span class="text-success" title="'.$openid.'">已绑定</span><a href="'.url('oauth-unbind',['type'=>'sina']).'" onclick="return confirm(\'解绑后将无法通过微博一键登录，是否确定解绑？\');">【解绑】</a>';}else{echo '<a href="'.url('oauth',['type'=>'sina']).'">【前往绑定】</a>';}?>
+<?php }?>
+<?php if(in_array('alipay',$opentype)){?>
+    <br><img src="plugin/clogin/static/alipay.svg" style="width: 14px;"> 支付宝登录：<?php if($openid = is_clogin_bind($uid,'alipay')){echo '<span class="text-success" title="'.$openid.'">已绑定</span><a href="'.url('oauth-unbind',['type'=>'alipay']).'" onclick="return confirm(\'解绑后将无法通过支付宝一键登录，是否确定解绑？\');">【解绑】</a>';}else{echo '<a href="'.url('oauth',['type'=>'alipay']).'">【前往绑定】</a>';}?>
+<?php }?>

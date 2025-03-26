@@ -1,0 +1,103 @@
+{include file="header.htm" /}
+<body style="background-color: #FFF; overflow: auto;">
+<div id="toolTipLayer" style="position: absolute; z-index: 9999; display: none; visibility: visible; left: 95px; top: 573px;"></div>
+<div id="append_parent"></div>
+<div id="ajaxwaitid"></div>
+<div class="page">
+    {include file="bar.htm" /}
+    <!-- 操作说明 -->
+    <form class="form-horizontal" id="post_form" action="{:weapp_url('Wblogin/Wblogin/save')}" method="post">
+        <div class="ncap-form-default">
+            <dl class="row">
+                <dt class="tit">
+                    <label for="appurl"><em>*</em>接口地址</label>
+                </dt>
+                <dd class="opt">
+                    <input type="text" name="appurl" value="{$info.appurl|default=''}" id="appurl" class="input-txt">
+                    <span class="err"></span>
+                    <p class="notic">接口地址必须以http://或https://开头，以/结尾</p>
+                </dd>
+            </dl>
+			<dl class="row">
+                <dt class="tit">
+                    <label for="appid"><em>*</em>应用APPID</label>
+                </dt>
+                <dd class="opt">
+                    <input type="text" name="appid" value="{$info.appid|default=''}" id="appid" class="input-txt">
+                    <span class="err"></span>
+                    <p class=""></p>
+                </dd>
+            </dl>
+            <dl class="row">
+                <dt class="tit">
+                    <label for="appkey"><em>*</em>应用APPKEY</label>
+                </dt>
+                <dd class="opt">
+                    <input type="text" name="appkey" value="{$info.appkey|default=''}" id="appkey" class="input-txt">
+                    <span class="err"></span>
+                    <p class=""></p>
+                </dd>
+            </dl>
+			<dl class="row">
+                <dt class="tit" style="width: 150px;">
+                    <label>前台登录页面</label>
+                </dt>
+                <dd class="opt" style="width: 75%;">
+                    <div class="onoff">
+                        <label for="login_show1" class="cb-enable {if condition='isset($info.login_show) && $info.login_show eq 1'}selected{/if}">显示</label>
+                        <label for="login_show0" class="cb-disable {if condition='!isset($info.login_show) || $info.login_show eq 0'}selected{/if}">隐藏</label>
+                        <input id="login_show1" name="login_show" value="1" type="radio" {if condition="isset($info.login_show) && $info.login_show eq 1"} checked="checked"{/if}>
+                        <input id="login_show0" name="login_show" value="0" type="radio" {if condition="!isset($info.login_show) || $info.login_show eq 0"} checked="checked"{/if}>
+                    </div>
+                    <p class="notic">前台登录页面是否显示QQ登录按钮</p>
+                </dd>
+            </dl>
+            <dl class="row">
+                <dt class="tit" style="width: 150px;">
+                    <label>绑定已有账号功能</label>
+                </dt>
+                <dd class="opt" style="width: 75%;">
+                    <div class="onoff">
+                        <label for="bind1" class="cb-enable {if condition='isset($info.bind) && $info.bind eq 1'}selected{/if}">开启</label>
+                        <label for="bind0" class="cb-disable {if condition='!isset($info.bind) || $info.bind eq 0'}selected{/if}">关闭</label>
+                        <input id="bind1" name="bind" value="1" type="radio" {if condition="isset($info.bind) && $info.bind eq 1"} checked="checked"{/if}>
+                        <input id="bind0" name="bind" value="0" type="radio" {if condition="!isset($info.bind) || $info.bind eq 0"} checked="checked"{/if}>
+                    </div>
+                    <p class="notic">开启后QQ登录用户可以选择绑定本站已有账号</p>
+                </dd>
+            </dl>
+            <div class="bot">
+                <a href="JavaScript:void(0);" onclick="checkForm();" class="ncap-btn-big ncap-btn-green" id="submitBtn">确认提交</a>
+            </div>
+        </div>
+    </form>
+</div>
+<script type="text/javascript">
+    // 判断输入框是否为空
+    function checkForm(){
+        if($.trim($('input[name=appurl]').val()) == ''){
+            showErrorMsg('接口地址不能为空！');
+            $('input[name=appurl]').focus();
+            return false;
+        }
+        if($.trim($('input[name=appid]').val()) == ''){
+            showErrorMsg('应用APPID不能为空！');
+            $('input[name=appid]').focus();
+            return false;
+        }
+        if($.trim($('input[name=appkey]').val()) == ''){
+            showErrorMsg('应用APPKEY不能为空！');
+            $('input[name=appkey]').focus();
+            return false;
+        }
+        layer_loading('正在处理');
+        $('#post_form').submit();
+    }
+</script>
+<script type="text/javascript" src="__SKIN__/js/clipboard.min.js"></script>
+<script type="text/javascript">
+    function showtext(classname){
+        var clipboard1 = new Clipboard("."+classname);clipboard1.on("success", function(e) {layer.msg("复制成功");});clipboard1.on("error", function(e) {layer.msg("复制失败！请手动复制", {icon:2});}); 
+    }
+</script>
+{include file="footer.htm" /}
